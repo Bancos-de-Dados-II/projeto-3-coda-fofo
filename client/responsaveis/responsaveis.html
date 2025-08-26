@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Responsáveis</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="max-w-7xl mx-auto p-6">
+        
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">Gestão de Responsáveis</h1>
+            <button id="btnNovoResponsavel" class="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition flex items-center">
+                <i class="fas fa-plus mr-2"></i> Novo Responsável
+            </button>
+        </div>
+
+        <div class="flex gap-2">
+          <a
+            href="../listagem/listagem-descritiva.html"
+            class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-opacity-80 transition"
+            >Lista de denuncias</a
+          >
+          <a
+            href="../listagem/listagem-denuncias.html"
+            class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-opacity-80 transition"
+            >Mapa com denuncias</a
+          >
+          <a
+            href="../criar-denuncia/criar-denuncia.html"
+            class="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-opacity-80 transition"
+            >Nova Denúncia</a
+          >
+        </div>
+
+        <!-- Barra de busca -->
+        <div class="bg-white shadow-md rounded-2xl p-4 mb-6">
+            <div class="flex gap-2">
+                <input type="text" id="buscaResponsavel" placeholder="Buscar responsáveis..." class="flex-1 p-3 border rounded-2xl bg-gray-100">
+                <button id="btnBuscar" class="bg-blue-600 text-white px-4 py-2 rounded-2xl hover:bg-blue-700 transition">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Lista de responsáveis -->
+        <div class="bg-white shadow-md rounded-2xl p-6 mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Lista de Responsáveis</h2>
+            <div id="listaResponsaveis" class="space-y-4">
+                <!-- Os responsáveis serão carregados aqui via JavaScript -->
+            </div>
+        </div>
+
+        <!-- Modal para adicionar/editar responsável -->
+        <div id="modalResponsavel" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+            <div class="bg-white rounded-2xl p-6 w-full max-w-md">
+                <h2 id="modalTitulo" class="text-2xl font-bold text-gray-800 mb-4">Novo Responsável</h2>
+                <form id="formResponsavel" class="space-y-4">
+                    <input type="hidden" id="responsavelId">
+                    <div>
+                        <label for="nome" class="block text-gray-700 mb-1">Nome</label>
+                        <input type="text" id="nome" class="w-full p-3 border rounded-2xl bg-gray-100" required>
+                    </div>
+                    <div>
+                        <label for="tipo" class="block text-gray-700 mb-1">Tipo</label>
+                        <select id="tipo" class="w-full p-3 border rounded-2xl bg-gray-100" required>
+                            <option value="">Selecione o tipo</option>
+                            <option value="Polícia">Polícia</option>
+                            <option value="Prefeitura">Prefeitura</option>
+                            <option value="Bombeiros">Bombeiros</option>
+                            <option value="Secretaria de Obras">Secretaria de Obras</option>
+                            <option value="Vigilância Sanitária">Vigilância Sanitária</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-gray-700 mb-1">Email</label>
+                        <input type="email" id="email" class="w-full p-3 border rounded-2xl bg-gray-100" required>
+                    </div>
+                    <div>
+                        <label for="telefone" class="block text-gray-700 mb-1">Telefone</label>
+                        <input type="text" id="telefone" class="w-full p-3 border rounded-2xl bg-gray-100" required>
+                    </div>
+                    <div>
+                        <label for="areaAtuacao" class="block text-gray-700 mb-1">Área de Atuação</label>
+                        <input type="text" id="areaAtuacao" class="w-full p-3 border rounded-2xl bg-gray-100" required>
+                    </div>
+                    <div class="flex justify-end gap-2 mt-6">
+                        <button type="button" id="btnCancelar" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-full hover:bg-gray-400 transition">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">
+                            Salvar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal de confirmação de exclusão -->
+        <div id="modalConfirmacao" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+            <div class="bg-white rounded-2xl p-6 w-full max-w-md">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Confirmar Exclusão</h2>
+                <p class="text-gray-600 mb-6">Tem certeza que deseja desativar este responsável?</p>
+                <div class="flex justify-end gap-2">
+                    <button type="button" id="btnCancelarExclusao" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-full hover:bg-gray-400 transition">
+                        Cancelar
+                    </button>
+                    <button type="button" id="btnConfirmarExclusao" class="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 transition">
+                        Confirmar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../utils/js/responsaveis.js"></script>
+</body>
+</html>

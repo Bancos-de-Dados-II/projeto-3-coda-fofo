@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mapa de Denúncias</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  </head>
+  <body class="bg-gray-100">
+    <div class="relative h-screen">
+      <a href="../index.html">
+        <button
+          class="absolute top-4 right-4 bg-blue-700 text-white w-12 h-12 flex items-center justify-center rounded-full hover:bg-blue-600 transition z-50 cursor-pointer"
+        >
+          <img
+            class="w-5"
+            src="../utils/img/icons8-excluir.svg"
+            alt="icone voltar"
+          />
+        </button>
+      </a>
+      <div
+        class="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-400 bg-opacity-50 backdrop-blur-lg p-2 rounded-2xl shadow-lg z-10 w-11/12 max-w-4xl"
+      >
+        <form id="form-pesquisar-denuncia" class="flex gap-2">
+          <input
+            type="text"
+            id="buscaTexto"
+            placeholder="Digite termos para buscar..."
+            class="flex-1 p-3 border rounded-2xl bg-white bg-opacity-70"
+          />
+          <button
+            type="submit"
+            class="bg-blue-600 text-white px-4 py-2 rounded-2xl"
+          >
+            Buscar
+          </button>
+        </form>
+      </div>
+
+      <div class="w-full h-full">
+        <div id="map" class="w-full h-full z-0"></div>
+      </div>
+
+      <div
+        id="container-form"
+        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50"
+      >
+        <div
+          class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl w-11/12 text-gray-100 relative"
+        >
+          <div class="flex justify-between items-center">
+            <h2 class="text-xl font-semibold">Editar Denúncia</h2>
+            <button
+              id="btn-fechar-modal-denuncia"
+              class="w-10 h-10 flex justify-center items-center rounded-full bg-white bg-opacity-20 hover:bg-opacity-40 transition"
+              style="backdrop-filter: blur(6px)"
+            >
+              <img
+                src="../utils/img/icons8-excluir.svg"
+                alt="Fechar"
+                class="w-5 h-5"
+              />
+            </button>
+          </div>
+
+          <form id="editForm" class="space-y-4">
+            <input type="hidden" id="editId" />
+
+            <input
+              type="text"
+              id="editTitulo"
+              placeholder="Título"
+              class="w-full p-3 border border-gray-600 rounded-2xl bg-gray-700 text-gray-100 placeholder-gray-400"
+              required
+            />
+
+            <textarea
+              id="editDescricao"
+              placeholder="Descrição"
+              class="w-full p-3 border border-gray-600 rounded-2xl bg-gray-700 text-gray-100 placeholder-gray-400"
+              required
+            ></textarea>
+
+            <select
+              id="editCategoria"
+              class="w-full p-3 border border-gray-600 rounded-2xl bg-gray-700 text-gray-100"
+              required
+            >
+              <option value="">Selecione a categoria</option>
+              <option value="Infraestrutura">Infraestrutura</option>
+              <option value="Segurança">Segurança</option>
+              <option value="Meio Ambiente">Meio Ambiente</option>
+              <option value="Outros">Outros</option>
+            </select>
+
+            <div class="flex gap-2">
+              <input
+                type="text"
+                id="editLocalBusca"
+                placeholder="Buscar novo local..."
+                class="flex-1 p-3 border border-gray-600 rounded-2xl bg-gray-700 text-gray-100 placeholder-gray-400"
+              />
+              <button
+                type="button"
+                onclick="buscarLocal()"
+                class="bg-blue-600 text-white px-4 py-2 rounded-2xl hover:bg-blue-700 transition"
+              >
+                Buscar
+              </button>
+            </div>
+
+            <div id="editMap" class="w-full h-64 rounded-2xl"></div>
+
+            <input type="hidden" id="latitude" />
+            <input type="hidden" id="longitude" />
+
+            <div class="text-right">
+              <button
+                type="submit"
+                class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition"
+              >
+                Salvar Alterações
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="../utils/js/listagem-denuncias.js"></script>
+  </body>
+</html>

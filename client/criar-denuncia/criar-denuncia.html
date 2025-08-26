@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Nova Denúncia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  </head>
+  <body class="bg-gray-100">
+    <div class="max-w-7xl mx-auto p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-gray-800">Registrar Denúncia</h1>
+        <a href="../index.html">
+          <button
+            class="bg-blue-700 text-white w-12 h-12 flex items-center justify-center rounded-full hover:bg-blue-600 transition z-50 cursor-pointer"
+          >
+            <img
+              class="w-5"
+              src="../utils/img/icons8-excluir.svg"
+              alt="icone voltar"
+            />
+          </button>
+        </a>
+      </div>
+
+      <div class="bg-white shadow-md rounded-2xl p-6">
+        <form id="denunciaForm" class="space-y-4">
+          <input
+            type="text"
+            id="titulo"
+            placeholder="Título"
+            class="w-full p-3 border rounded-2xl bg-gray-100"
+            required
+          />
+          <textarea
+            id="descricao"
+            placeholder="Descrição"
+            class="w-full p-3 border rounded-2xl bg-gray-100"
+            required
+          ></textarea>
+
+          <select
+            id="categoria"
+            class="w-full p-3 border rounded-2xl bg-gray-100"
+            required
+          >
+            <option selected disabled>Selecione a categoria</option>
+            <option value="Infraestrutura">Infraestrutura</option>
+            <option value="Segurança">Segurança</option>
+            <option value="Meio Ambiente">Meio Ambiente</option>
+            <option value="Outros">Outros</option>
+          </select>
+
+          <div class="flex gap-2">
+            <input
+              type="text"
+              id="buscaLocal"
+              placeholder="Buscar localização..."
+              class="flex-1 p-3 border rounded-2xl bg-gray-100"
+            />
+            <button
+              type="button"
+              onclick="buscarEndereco()"
+              class="bg-gray-700 text-white px-4 py-2 rounded-2xl hover:bg-gray-800"
+            >
+              Buscar
+            </button>
+          </div>
+
+          <p class="text-gray-600 text-sm">
+            Clique no mapa para escolher o local da denúncia
+          </p>
+          <div id="map" class="h-96 rounded-2xl border"></div>
+
+          <input type="hidden" id="latitude" />
+          <input type="hidden" id="longitude" />
+
+          <div class="text-right">
+            <button
+              type="submit"
+              class="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition"
+            >
+              Enviar Denúncia
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="../utils/js/script.js"></script>
+  </body>
+</html>

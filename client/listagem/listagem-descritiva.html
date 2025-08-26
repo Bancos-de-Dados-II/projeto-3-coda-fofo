@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <title>Listagem denuncias</title>
+  </head>
+  <body class="bg-gray-100">
+    <div class="max-w-7xl mx-auto p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-gray-800">Listagem das denuncias</h1>
+
+        <a
+          href="../index.html"
+          class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition"
+          >Voltar para dashboards</a
+        >
+      </div>
+
+      <div class="bg-white shadow-md rounded-2xl p-6 mt-10">
+        <div class="flex gap-2">
+          <input
+            type="text"
+            id="busca-denuncia"
+            placeholder="Buscar denuncias..."
+            class="flex-1 p-3 border rounded-2xl"
+          />
+        </div>
+        <div
+          id="lista-denuncias"
+          class="bg-white shadow-md rounded-2xl p-6 mt-6 max-h-[400px] overflow-auto">
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="modal-editar"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden"
+    >
+      <div class="bg-white rounded-lg shadow-lg w-full max-w-lg p-6 relative">
+        <h2 class="text-xl font-bold mb-4">Editar Denúncia</h2>
+
+        <form id="form-editar-denuncia" class="space-y-4">
+          <input type="hidden" id="editar-id" />
+
+          <div>
+            <label for="editar-titulo" class="block font-semibold mb-1">Título</label>
+            <input
+              id="editar-titulo"
+              type="text"
+              class="w-full border border-gray-300 rounded px-3 py-2"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="editar-descricao" class="block font-semibold mb-1">Descrição</label>
+            <textarea
+              id="editar-descricao"
+              rows="4"
+              class="w-full border border-gray-300 rounded px-3 py-2"
+              required
+            ></textarea>
+          </div>
+
+          <div>
+            <label for="editar-categoria" class="block font-semibold mb-1">Categoria</label>
+            <select
+              id="editar-categoria"
+              class="w-full border border-gray-300 rounded px-3 py-2"
+              required
+            >
+              <option value="">Selecione uma categoria</option>
+              <option value="Infraestrutura">Infraestrutura</option>
+              <option value="Segurança">Segurança</option>
+              <option value="Meio Ambiente">Meio Ambiente</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+
+          <div class="flex justify-end gap-3">
+            <button
+              type="button"
+              id="btn-cancelar-edicao"
+              class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400 transition"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition"
+            >
+              Salvar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="/client/utils/js/listagem.js"></script>
+  </body>
+</html>
